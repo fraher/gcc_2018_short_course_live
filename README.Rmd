@@ -2,29 +2,139 @@
 title: "README"
 author: "Chris Fraher"
 date: "June 6, 2018"
-output: html_document
+output: 
+  github_document:
+    toc: true
+    toc_depth: 2
+  
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+# Seting Up a Project
 
-## R Markdown
+## The Folders
+R/
+data/
+results/
+reports/
+README.Rmd., .md
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Sometimes:
+figures/
+LICENSE.Rmd,
+TODO.Rmd
+CITATION.Rmd
+etc...
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+# Write a README First
+1. Write a README first
+- Put the goal of the project before starting analysis, confirm with others
+- Prevents project creep over time, where ideas of analysis differ from goals
+- Tells a new person everything that needs to be done from getting the data to cleaning to running the analysis
 
-```{r cars}
-summary(cars)
-```
 
-## Including Plots
 
-You can also embed plots, for example:
+## The Process
+Files in the R folder:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
+1. 01_gather_data.R - Used to get the same dataset everytime
+2. 
+99. 95_make_clean.R - Cleans all data from workspace clean slate before running all scripts
+- Loops through folders such as "results" and "data" directories and delete it all
+100. 99_make_all.R - This contains the entire workflow to run in order 
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+
+Write a funcioning R package in < 15 min
+
+Thesee packages shift bookkeeping from frustrated mortals to laconic computers:
+
+devtools
+roxygen2
+knitr
+rmarkdown
+
+To generate an R Pakcage
+
+Start a new R Project
+
+Create a license file
+
+
+file.edit("LICENSE")
+library(devtools)
+library(roxygen2)
+library(knitr)
+library(rmarkdown)
+
+document() - this will generate man pages if necessary
+build()
+*build_vignettes()
+install()
+check() - would this be accepted by CRAN
+
+at this point you have created a valid package
+
+.rs.restartR() - if you have edited the code for a packaged, it will try to reload from last time R was loaded... so edits require this to install it will also reload packages that were already reloaded
+
+library(gcc2018pck2) to load your package
+
+first add a script that describes the pacakge
+
+Every function should have a few typse of documentation,
+1. Title
+2. Description
+3. doctype
+4. name
+
+rerun through all the same steps as earlier
+Now can load the document file ?gcc2018pck2
+
+Make sure to follow "A Trivial Function" template
+use @examples not @example
+Then be sure to @export
+
+using :: means that it is making the function disambiguous
+here::here(foldername) means use the "here" from the specific pacakge desired
+
+use_package(pkg_name, "Import") or requires or requires or recommends
+Tells the user that they need to load the package
+Required will automatically load the pacakge (Import is preferred)
+Suggests: knitr, rmarkdown (this was used to biuild the package but isn't necessary to use)
+
+use_vignette("xxxVigneete")
+This creates an Rmarkdown file
+
+Create Packages for:
+Common functions and templates
+
+#REPORTS
+It should include:
+
+- underlying question
+- what experiments performed
+- what anlysis are being performed
+- results of analysis
+- conclusions we draw
+
+Sanity Checks:
+
+- What changes did you expect to see? did you?
+- What changes shouldn't be there if this is working?
+- Have you plotted the p-values from all contrasts?
+- Have you plotted low dimensional summaries of the data?
+- How have you plotted the data? (what should it look like if it is garbage, don't just trust)
+- Do the results make sense?
+
+#POSTING / PUBLISHING
+Dont post: see slids
+
+post .R, .Rmd, and .md
+
+What's enough:
+"I'd be comfortable removing the corresponding folder on my own computer because I could regenerate everything fairly quickly from what I posted"
+
+"
